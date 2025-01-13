@@ -50,7 +50,6 @@ function getFormattedDates(calendarType, year, yearEndDate = null) {
 }
 
 function addDays(day, numDays) {
-    console.log('add days', day, numDays);
     return day.add(numDays, 'days');
 }
 
@@ -129,7 +128,6 @@ export function generateDates(calendarType, startDate, endDate, requirementDays,
     const requirements = [];
     while (isDateBefore(startDate, endDate)) {
         const nextDate = getNextDate(calendarType, startDate, requirementDays, yearEndDate);
-        console.log(nextDate);
         if (isDateAfter(nextDate, endDate)) {
             break;
         }
