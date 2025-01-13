@@ -23,6 +23,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import purpleTheme from '../../theme/PurpleTheme';
 import { generateDates } from '../../utils/CalculatorUtils';
+import { FormHelperText } from '@mui/material';
 
 export default function Calculator() {
     const [calendarType, setCalendarType] = useState('');
@@ -42,7 +43,8 @@ export default function Calculator() {
     const handleCalculate = () => {
         let isError = false;
 
-        if (errorReqDays || !reqDays) {
+        if (errorReqDays || !reqDays || Number.isNaN(reqDays)) {
+            setErrorReqDays(true);
             isError = true;
         }
 
@@ -52,7 +54,9 @@ export default function Calculator() {
         }
 
         if (isError) return;
+
         const ranges = generateDates(calendarType, startDate, endDate, reqDays);
+
         setRangeResults(ranges);
     }
 
@@ -88,10 +92,10 @@ export default function Calculator() {
                     overflow: 'hidden'
                 }}>
                     <Paper elevation={3} sx={{ 
-                        p: 4, 
-                        maxWidth: 600, 
+                        p: 3, 
+                        maxWidth: 650, 
                         width: '100%', 
-                        height: '90vh',
+                        height: '97vh',
                         display: 'flex',
                         flexDirection: 'column'
                     }}>
@@ -106,6 +110,7 @@ export default function Calculator() {
                                         labelId="calendar-type-label"
                                         id="calendar-type"
                                         value={calendarType}
+                                        required
                                         label="Calendar Type"
                                         onChange={(event) => {
                                             setCalendarType(event.target.value);
@@ -152,7 +157,7 @@ export default function Calculator() {
                                     fullWidth
                                     required
                                     error={errorReqDays}
-                                    helperText={errorReqDays ? "Number of days should be greater than 0" : ""}
+                                    helperText={errorReqDays ? "Must be greater than 0" : ""}
                                     onChange={(event) => {
                                         const v = parseInt(event.target.value);
                                         v <= 0 ? setErrorReqDays(true) : setErrorReqDays(false);
