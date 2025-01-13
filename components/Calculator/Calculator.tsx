@@ -101,9 +101,34 @@ export default function Calculator() {
                         display: 'flex',
                         flexDirection: 'column'
                     }}>
-                        <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
-                            Report Due Date Calculator
-                        </Typography>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                            <Typography 
+                                variant="h4" 
+                                component="h1" 
+                                gutterBottom align="center" 
+                                color="primary"
+                                sx={{ cursor: 'pointer', userSelect: 'none', transition: 'opacity 0.5s ease-in-out' }}
+                                onClick={(e) => {
+                                    const target = e.target as HTMLElement;
+                                    if (target.innerText === 'Report Due Date Calculator') {
+                                        target.style.opacity = '0';
+                                        setTimeout(() => {
+                                            target.innerText = 'Created by David Shubov';
+                                            target.style.opacity = '1';
+                                            setTimeout(() => {
+                                                target.style.opacity = '0';
+                                                setTimeout(() => {
+                                                    target.innerText = 'Report Due Date Calculator';
+                                                    target.style.opacity = '1';
+                                                }, 500);
+                                            }, 1000);
+                                        }, 500);
+                                    }
+                                }}
+                            >
+                                Report Due Date Calculator
+                            </Typography>
+                        </Box>
                         <Grid container spacing={3} sx={{ mb: 2 }}>
                             <Grid item xs={12}>
                                 <FormControl fullWidth error={errorCalendarType}>
