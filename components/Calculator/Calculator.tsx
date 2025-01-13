@@ -23,7 +23,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import purpleTheme from '../../theme/PurpleTheme';
 import { generateDates } from '../../utils/CalculatorUtils';
-import { FormHelperText } from '@mui/material';
 
 export default function Calculator() {
     const [calendarType, setCalendarType] = useState('');
@@ -39,6 +38,7 @@ export default function Calculator() {
     const [errorReqDays, setErrorReqDays] = useState(false);
 
     const [rangeResults, setRangeResults] = useState([]);
+    const [showFullScreen, setShowFullScreen] = useState(false);
 
     const handleCalculate = () => {
         let isError = false;
@@ -54,7 +54,6 @@ export default function Calculator() {
         }
 
         if (isError) {
-            setRangeResults(["An error occurred, most likely from an empty input field."]);
             return;
         }
 
@@ -218,7 +217,7 @@ export default function Calculator() {
                             }}>
                                 <List dense sx={{ flexGrow: 1 }}>
                                     {
-                                        rangeResults && (
+                                        rangeResults.length > 0 && (
                                                 rangeResults.map((item, index) => (
                                                     <ListItem key={index} divider={index !== rangeResults.length - 1}>
                                                         <ListItemText
@@ -232,6 +231,66 @@ export default function Calculator() {
                                 </List>
                             </Paper>
                         </Box>
+                        {
+                            rangeResults.length > 0 && (
+                                <Button
+                                    variant="contained" 
+                                    color="primary" 
+                                    fullWidth 
+                                    onClick={() => setShowFullScreen(true)}
+                                    sx={{ py: 1.5, mt: 2 }}
+                                >
+                                    Full Screen Results
+                                </Button>
+                            )
+                        }
+                        {
+                            showFullScreen && (
+                                <Box sx={{ 
+                                    position: 'fixed', 
+                                    top: 0, 
+                                    left: 0, 
+                                    width: '100%', 
+                                    height: '100%', 
+                                    backgroundColor: 'background.default', 
+                                    zIndex: 1300, 
+                                    display: 'flex', 
+                                    flexDirection: 'column' 
+                                }}>
+                                    <Button 
+                                        variant="contained" 
+                                        color="secondary" 
+                                        onClick={() => setShowFullScreen(false)}
+                                        sx={{ alignSelf: 'flex-end', m: 2 }}
+                                    >
+                                        Close
+                                    </Button>
+                                    <Paper elevation={5} sx={{ 
+                                        flexGrow: 1, 
+                                        overflow: 'auto', 
+                                        backgroundColor: 'secondary.light',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        m: 2
+                                    }}>
+                                        <List dense sx={{ flexGrow: 1 }}>
+                                            {
+                                                rangeResults.length > 0 && (
+                                                        rangeResults.map((item, index) => (
+                                                            <ListItem key={index} divider={index !== rangeResults.length - 1}>
+                                                                <ListItemText
+                                                                    primary={dayjs(item).isValid() ? dayjs(item).format('MM-DD-YYYY') : 'Invalid result.'}
+                                                                    sx={{ '& .MuiListItemText-primary': { fontSize: '1.25rem', p: 1 } }}
+                                                                />
+                                                            </ListItem>
+                                                        ))
+                                                )
+                                            }
+                                        </List>
+                                    </Paper>
+                                </Box>
+                            )
+                        }
                     </Paper>
                 </Box>
             </LocalizationProvider>
