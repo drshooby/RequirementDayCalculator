@@ -67,20 +67,20 @@ export default function Calculator() {
         setRangeResults([]);
     }
 
-    // const handleDownload = () => {
-    //     const header = "date";
-    //     const content = rangeResults.map(date => dayjs(date).format('MM-DD-YYYY')).join('\n');
-    //     const csvContent = `${header}\n${content}`;
-    //     const blob = new Blob([csvContent], { type: 'text/csv' });
-    //     const url = URL.createObjectURL(blob);
-    //     const link = document.createElement('a');
-    //     link.href = url;
-    //     link.download = 'date_results.csv';
-    //     document.body.appendChild(link);
-    //     link.click();
-    //     document.body.removeChild(link);
-    //     URL.revokeObjectURL(url);
-    // }
+    const handleDownload = () => {
+        const header = "date";
+        const content = rangeResults.map(date => dayjs(date).format('MM-DD-YYYY')).join('\n');
+        const csvContent = `${header}\n${content}`;
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'date_results.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
 
     return (
         <ThemeProvider theme={purpleTheme}>
@@ -129,7 +129,7 @@ export default function Calculator() {
                                     {
                                         calendarType === 'year' && (
                                             <DatePicker 
-                                                label={'Requirement date'}
+                                                label={'Year Due Date'}
                                                 openTo="month"
                                                 views={['month', 'day']}
                                                 sx={{ width: '100%', marginTop: 2 }}
@@ -139,18 +139,20 @@ export default function Calculator() {
                                     )}
                                 </Box>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6} sx={{ pr: 1 }}>
                                 <DatePicker
                                     label="Agreement Start Date"
                                     value={startDate}
                                     onChange={(date) => setStartDate(date)}
+                                    sx={{ width: '100%' }}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6} sx={{ pl: 1 }}>
                                 <DatePicker
                                     label="Agreement End Date"
                                     value={endDate}
                                     onChange={(date) => setEndDate(date)}
+                                    sx={{ width: '100%' }}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -193,7 +195,7 @@ export default function Calculator() {
                                     Clear Results
                                 </Button>
                             </Grid>
-                            {/* <Grid item xs={12} sm={4}>
+                            <Grid item xs={12} sm={4}>
                                 <Button 
                                     variant="outlined" 
                                     color="primary" 
@@ -202,9 +204,9 @@ export default function Calculator() {
                                     disabled={rangeResults.length === 0}
                                     sx={{ py: 1.5 }}
                                 >
-                                    Download
+                                    Download CSV
                                 </Button>
-                            </Grid> */}
+                            </Grid>
                         </Grid>
                         <Box sx={{ flexGrow: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
                             <Paper elevation={5} sx={{ 
