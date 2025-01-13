@@ -113,6 +113,17 @@ export default function Calculator() {
                                         <MenuItem value={"year"}>Year</MenuItem>
                                     </Select>
                                 </FormControl>
+                                <Box>
+                                    {
+                                        calendarType === 'year' && (
+                                            <DatePicker 
+                                                label={'Requirement date'}
+                                                openTo="month"
+                                                views={['month', 'day']}
+                                                sx={{ width: '100%' }}
+                                            />
+                                    )}
+                                </Box>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <DatePicker
@@ -190,14 +201,16 @@ export default function Calculator() {
                                 flexDirection: 'column'
                             }}>
                                 <List dense sx={{ flexGrow: 1 }}>
-                                    {rangeResults.map((item, index) => (
-                                        <ListItem key={index} divider={index !== rangeResults.length - 1}>
-                                            <ListItemText
-                                                primary={dayjs(item).format('MM-DD-YYYY')}
-                                                sx={{ '& .MuiListItemText-primary': { fontSize: '1.25rem', p: 1 } }}
-                                            />
-                                        </ListItem>
-                                    ))}
+                                    {
+                                        rangeResults.map((item, index) => (
+                                            <ListItem key={index} divider={index !== rangeResults.length - 1}>
+                                                <ListItemText
+                                                    primary={dayjs(item).format('MM-DD-YYYY')}
+                                                    sx={{ '& .MuiListItemText-primary': { fontSize: '1.25rem', p: 1 } }}
+                                                />
+                                            </ListItem>
+                                        ))
+                                    }
                                 </List>
                             </Paper>
                         </Box>
