@@ -58,7 +58,7 @@ export default function Calculator() {
             return;
         }
 
-        const ranges = generateDates(calendarType, startDate, endDate, reqDays);
+        const ranges = generateDates(calendarType, startDate, endDate, reqDays, calendarType === 'year' ? yearSelect : null);
 
         setRangeResults(ranges);
     }
@@ -216,14 +216,16 @@ export default function Calculator() {
                             }}>
                                 <List dense sx={{ flexGrow: 1 }}>
                                     {
-                                        rangeResults.map((item, index) => (
-                                            <ListItem key={index} divider={index !== rangeResults.length - 1}>
-                                                <ListItemText
-                                                    primary={dayjs(item).isValid() ? dayjs(item).format('MM-DD-YYYY') : 'Invalid result.'}
-                                                    sx={{ '& .MuiListItemText-primary': { fontSize: '1.25rem', p: 1 } }}
-                                                />
-                                            </ListItem>
-                                        ))
+                                        rangeResults && (
+                                                rangeResults.map((item, index) => (
+                                                    <ListItem key={index} divider={index !== rangeResults.length - 1}>
+                                                        <ListItemText
+                                                            primary={dayjs(item).isValid() ? dayjs(item).format('MM-DD-YYYY') : 'Invalid result.'}
+                                                            sx={{ '& .MuiListItemText-primary': { fontSize: '1.25rem', p: 1 } }}
+                                                        />
+                                                    </ListItem>
+                                                ))
+                                        )
                                     }
                                 </List>
                             </Paper>
