@@ -25,9 +25,13 @@ import purpleTheme from '../../theme/PurpleTheme';
 import { generateDates } from '../../utils/CalculatorUtils';
 
 export default function Calculator() {
+    const [calendarType, setCalendarType] = useState('');
+
+    const [yearSelect, setYearSelect] = useState(dayjs());
+
     const [startDate, setStartDate] = useState(dayjs());
     const [endDate, setEndDate] = useState(dayjs());
-    const [calendarType, setCalendarType] = useState('');
+
     const [errorCalendarType, setErrorCalendarType] = useState(false);
 
     const [reqDays, setReqDays] = useState(0);
@@ -120,7 +124,8 @@ export default function Calculator() {
                                                 label={'Requirement date'}
                                                 openTo="month"
                                                 views={['month', 'day']}
-                                                sx={{ width: '100%' }}
+                                                sx={{ width: '100%', marginTop: 2 }}
+                                                onChange={(date) => setYearSelect(date)}
                                             />
                                     )}
                                 </Box>
