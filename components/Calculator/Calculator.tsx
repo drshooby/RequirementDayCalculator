@@ -48,12 +48,15 @@ export default function Calculator() {
             isError = true;
         }
 
-        if (!calendarType) {
+        if (!calendarType || (calendarType === 'year' && !yearSelect)) {
             setErrorCalendarType(true);
             isError = true;
         }
 
-        if (isError) return;
+        if (isError) {
+            setRangeResults(["An error occurred, most likely from an empty input field."]);
+            return;
+        }
 
         const ranges = generateDates(calendarType, startDate, endDate, reqDays);
 
@@ -130,6 +133,7 @@ export default function Calculator() {
                                                 openTo="month"
                                                 views={['month', 'day']}
                                                 sx={{ width: '100%', marginTop: 2 }}
+                                                value={yearSelect}
                                                 onChange={(date) => setYearSelect(date)}
                                             />
                                     )}
@@ -215,7 +219,7 @@ export default function Calculator() {
                                         rangeResults.map((item, index) => (
                                             <ListItem key={index} divider={index !== rangeResults.length - 1}>
                                                 <ListItemText
-                                                    primary={dayjs(item).format('MM-DD-YYYY')}
+                                                    primary={dayjs(item).isValid() ? dayjs(item).format('MM-DD-YYYY') : 'Invalid result.'}
                                                     sx={{ '& .MuiListItemText-primary': { fontSize: '1.25rem', p: 1 } }}
                                                 />
                                             </ListItem>
