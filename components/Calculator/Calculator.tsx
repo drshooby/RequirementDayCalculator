@@ -92,7 +92,7 @@ export default function Calculator() {
                         flexDirection: 'column'
                     }}>
                         <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
-                            Date Calculator
+                            Report Due Date Calculator
                         </Typography>
                         <Grid container spacing={3} sx={{ mb: 2 }}>
                             <Grid item xs={12}>
@@ -109,19 +109,21 @@ export default function Calculator() {
                                         }}
                                     >
                                         <MenuItem value={"quarter"}>Quarter</MenuItem>
+                                        <MenuItem value={"month"}>Month</MenuItem>
+                                        <MenuItem value={"year"}>Year</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <DatePicker
-                                    label="Start Date"
+                                    label="Agreement Start Date"
                                     value={startDate}
                                     onChange={(date) => setStartDate(date)}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <DatePicker
-                                    label="End Date"
+                                    label="Agreement End Date"
                                     value={endDate}
                                     onChange={(date) => setEndDate(date)}
                                 />
