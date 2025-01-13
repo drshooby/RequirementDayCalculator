@@ -153,7 +153,7 @@ export default function Calculator() {
                                     {
                                         calendarType === 'year' && (
                                             <DatePicker 
-                                                label={'Year Due Date'}
+                                                label={'Fiscal Year End Date'}
                                                 openTo="month"
                                                 views={['month', 'day']}
                                                 sx={{ width: '100%', marginTop: 2 }}
